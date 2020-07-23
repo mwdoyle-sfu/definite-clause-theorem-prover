@@ -62,18 +62,26 @@ def valid_clause(lines):
 
 def print_out(lines):
     # print out
+    print("  {:d} definite clauses read in:".format(len(lines)))
     for line in lines:
-        print(line)
-    print("\t\n{:d} new rule(s) added".format(len(lines)))
+        print("   ",line)
+    print()
+
+# https://stackoverflow.com/a/29980091
+class sset(set):
+    def __str__(self):
+        return ', '.join([str(i) for i in self])
+
 
 def run_interpreter():
+    # look into ordered sets https://stackoverflow.com/questions/1653970/does-python-have-an-ordered-set
     kb = set()
 
     while True:
         user_input = input('kb> ').split()
 
+        # load command 
         if load(user_input):
-            # load file
             try:
                 lines = read_file(user_input[1])
             except:
@@ -91,7 +99,7 @@ def run_interpreter():
                 # load lines into KB
                 kb.update(lines)
             
-
+        # tell command    
         elif tell(user_input):
             if len(user_input) <= 1:
                 print("Error: tell needs at least one atom")
@@ -106,24 +114,54 @@ def run_interpreter():
                     print("atom \"%s\" already known to be true" % atom)
                 else:
                     kb.add(atom)
-                    print("\"%s\" added to KB" % atom)
+                    print("  \"%s\" added to KB" % atom)
+            print()
         
+
+
+        # infer_all command
         elif user_input[0] == 'infer_all':
             # seperate rules and atoms
             rules = set()
             atoms = set()
+            infered = set()
             for clause in kb:
                 if '<--' in clause:
                     rules.add(clause)
                 else:
                     atoms.add(clause)
-            print(rules)
-            print(atoms)
-            # infer shit from atoms
-            
+            #  infer algorithm
+            clauses = []
+            for line in rules:
+                clauses.append(line.split())
+            for clause in clauses:
+                rule_atoms = even_elements(clause)
+                # if rule starts with known shit remove it
+                if rule_atoms[0] in kb:
+                    continue
+                if all(item in atoms for item in rule_atoms[1::]):
+                    infered.add(rule_atoms[0])
+                    # add to known shit
+                    kb.add(rule_atoms[0])
+
+            print("  Newly inferred atoms:")
+            if len(infered) == 0:
+                print("    <none>")
+            else:
+                print("   ",sset(infered))
+            print("  Atoms already known to be true:")
+            print("   ",sset(atoms))
 
 
 
+
+
+
+
+
+
+
+        # print all command for debugging
         elif user_input[0] == 'print':
             print(kb)
             
