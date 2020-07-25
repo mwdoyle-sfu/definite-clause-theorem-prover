@@ -116,33 +116,38 @@ def run_interpreter():
                     kb.add(atom)
                     print("  \"%s\" added to KB" % atom)
             print()
-        
-
 
         # infer_all command
         elif user_input[0] == 'infer_all':
             # seperate rules and atoms
             rules = set()
             atoms = set()
+            already_known = set()
             infered = set()
             for clause in kb:
                 if '<--' in clause:
                     rules.add(clause)
                 else:
                     atoms.add(clause)
+                    already_known.add(clause)
             #  infer algorithm
             clauses = []
             for line in rules:
                 clauses.append(line.split())
-            for clause in clauses:
-                rule_atoms = even_elements(clause)
-                # if rule starts with known shit remove it
+            # for clause in clauses:
+            for i in range(len(clauses)):
+                rule_atoms = even_elements(clauses[i])
                 if rule_atoms[0] in kb:
                     continue
                 if all(item in atoms for item in rule_atoms[1::]):
                     infered.add(rule_atoms[0])
-                    # add to known shit
+                    # causing added atom to be printed
+                    atoms.add(rule_atoms[0])
                     kb.add(rule_atoms[0])
+                    # restart loop
+                    i = 0
+
+
 
             print("  Newly inferred atoms:")
             if len(infered) == 0:
@@ -150,7 +155,8 @@ def run_interpreter():
             else:
                 print("   ",sset(infered))
             print("  Atoms already known to be true:")
-            print("   ",sset(atoms))
+            print("   ",sset(already_known))
+            print()
 
 
 
