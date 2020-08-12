@@ -2,7 +2,7 @@
 
 ## How to run the program
 
-`$ python3 a4.py`
+`$ python3 dctp.py`
 
 ### Example 1: light lamp 1
 
