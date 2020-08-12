@@ -1,0 +1,15 @@
+live_light_1 <-- live_wire_0
+live_wire_0 <-- live_wire_1 & up_switch_2
+live_wire_0 <-- live_wire_2 & down_switch_2
+live_wire_0 <-- live_wire_2 & down_switch_2
+live_wire_1 <-- live_wire_3 & up_switch_1
+live_wire_2 <-- live_wire_3 & down_switch_1
+live_light_2 <-- live_wire_4
+live_wire_4 <-- live_wire_3 & up_switch_3
+live_power_outlet_1 <-- live_wire_3
+live_wire_3 <-- live_wire_5 & closed_circuit_breaker_1
+live_power_outlet_2 <-- live_wire_6
+live_wire_6 <-- live_wire_5 & closed_circuit_breaker_2
+live_wire_5 <-- live_outside 
+lit_light_1 <-- live_wire_0
+lit_light_2 <-- live_wire_4
