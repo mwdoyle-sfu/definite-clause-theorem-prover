@@ -35,3 +35,7 @@ kb> tell live_outside closed_circuit_breaker_2
 
 kb> infer_all
 ```
+
+### Circuit Diagram
+
+![alt text](https://github.com/mwdoyle-sfu/definite-clause-theorem-prover/blob/master/diagram.png?raw=true)
