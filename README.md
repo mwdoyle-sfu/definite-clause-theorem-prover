@@ -1,6 +1,6 @@
 # Definite-clause-theorem-prover
 
-Definite clauses are a subset of the regular propositional calculus that, while not as expressive as full propositional logic, they can be used to do very efficient reasoning. A knowledge base file (KB file for short) consists of 1, or more, rules. For simplicity, each rule is written on its own line. Blank spaces are permitted between rules, and extra whitespace is permitted around tokens.
+Definite clauses are a subset of the regular propositional calculus. A knowledge base file (KB file for short) consists of 1, or more, rules. The system can infer which rules hold true based on the truth variables and the rules the user provides. See below for an example of energizing circuits in a house.
 
 ## How to run the program
 
